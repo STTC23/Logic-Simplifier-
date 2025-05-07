@@ -30,5 +30,28 @@ for i, expresion in enumerate(expresiones):
     elif expresion in ["not(notA)", "notnotA", "not(notB)", "notnotB", "not(notC)", "notnotC"]:
         simplificada = expresion[-2]  #Toma el penúltimo caracter de la expresión, 
 
+    
+       # Leyes de De Morgan
+    elif expresion.startswith("not(") and expresion.endswith(")"):
+        interior = expresion[4:-1]  # Quita not(...) y extrae interior, en este caso, las variables y su operador lógico, not(AandB)
+
+        if "and" in interior:
+            partes = interior.split("and") #interior = "A and B" // partes = ["A ", " B"]
+            if len(partes) == 2:
+                simplificada = f"not{partes[0]} or not{partes[1]}"
+            else:
+                simplificada = "De Morgan parcial (más de 2 variables)"
+        elif "or" in interior:
+            partes = interior.split("or")
+            if len(partes) == 2:
+                simplificada = f"not{partes[0]} and not{partes[1]}"
+            else:
+                simplificada = "De Morgan parcial (más de 2 variables)"
+        else:
+            simplificada = "No aplica De Morgan (falta 'and' o 'or')"
+
+    else:
+        simplificada = "No se puede simplificar (o formato no reconocido)."
+
     # Se muestra el resultado de la expresión simplificada
     print("→ Simplificación:", simplificada)
