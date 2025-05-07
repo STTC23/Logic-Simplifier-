@@ -37,8 +37,8 @@ for i, expresion in enumerate(expresiones):
 
         if "and" in interior:
             partes = interior.split("and") #interior = "A and B" // partes = ["A ", " B"]
-            if len(partes) == 2:
-                simplificada = f"not{partes[0]} or not{partes[1]}"
+            if len(partes) == 2: # Tiene que haber dos expresiones para evaluar
+                simplificada = f"not{partes[0]} or not{partes[1]}" #Se toma el primer caracter y el segundo 
             else:
                 simplificada = "De Morgan parcial (más de 2 variables)"
         elif "or" in interior:
